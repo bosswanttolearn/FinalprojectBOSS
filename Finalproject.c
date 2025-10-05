@@ -45,3 +45,39 @@ static void read_line(const char *prompt, char *buf, size_t cap, int no_comma) {
         return;
     }
 }
+
+int readAll(TrainingRecord recs[], int max) {
+    FILE *fp = fopen(FILE_NAME, "r");
+    if (!fp) return 0;
+
+    int count = 0;
+    while (count < max &&
+    fscanf(fp, "%63[^,],%63[^,],%15[^,],%63[^\n]\n",
+        recs[count].TraineeName,
+        recs[count].CourseName,
+        recs[count].TrainingDate,
+        recs[count].TrainingLocation) == 4 ) {
+            trim(recs[count].TraineeName);
+            trim(recs[count].CourseName);
+            trim(recs[count].TrainingDate);
+            trim(recs[count].TrainingLocation);
+            count++;
+        }
+    
+        fclose(fp);
+    return count;
+}
+void writeAll(TrainingRecord recs[], int count) {
+    FILE *fp = fopen(FILE_NAME, "w");
+    if (!fp) { printf("Cannot write file.\n"); return; }
+    for (int i = 0; i < count; i++) {
+        fprintf(fp, "%s,%s,%s,%s\n",
+                recs[i].TraineeName,
+                recs[i].CourseName,
+                recs[i].TrainingDate,
+                recs[i].TrainingLocation);
+    }
+    fclose(fp);
+}
+
+
