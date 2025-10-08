@@ -13,7 +13,7 @@ typedef struct {
     char TrainingLocation[80];
 } TrainingRecord;
 
-/* -------------------- Utility Functions -------------------- */
+
 static void chomp(char *s) {
     s[strcspn(s, "\r\n")] = 0;
 }
@@ -50,7 +50,7 @@ static void read_line(const char *prompt, char *buf, size_t cap, int no_comma) {
     }
 }
 
-/* -------------------- CSV I/O -------------------- */
+
 int readAll(TrainingRecord recs[], int max) {
     FILE *fp = fopen(FILE_NAME, "r");
     if (!fp) return 0;
@@ -86,7 +86,7 @@ void writeAll(TrainingRecord recs[], int count) {
     fclose(fp);
 }
 
-/* -------------------- CRUD -------------------- */
+
 void addRecord(void) {
     FILE *fp = fopen(FILE_NAME, "a");
     if (!fp) { printf("Cannot open file.\n"); return; }
@@ -205,7 +205,7 @@ void deleteRecord(void) {
     printf("Record deleted.\n");
 }
 
-/* -------------------- Menu -------------------- */
+
 void displayMenu(void) {
     int choice;
     do {
